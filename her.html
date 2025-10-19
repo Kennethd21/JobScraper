@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For You ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+  <style>
+    /* Google Fonts: Caveat (handwritten), Poppins (clean) */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #fff6f8;
+      color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Floating Hearts Animation */
+    .floating-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .floating-heart {
+      position: absolute;
+      font-size: 20px;
+      color: rgba(255, 78, 106, 0.4);
+      animation: float 15s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: moveBackground 20s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes moveBackground {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-family: 'Caveat', cursive;
+      font-size: 5rem;
+      margin-bottom: 20px;
+      animation: fadeInDown 1s ease-out, float 3s ease-in-out infinite;
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .hero h1::after {
+      content: '💕';
+      position: absolute;
+      right: -60px;
+      top: -10px;
+      font-size: 2.5rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .hero p {
+      font-size: 1.6rem;
+      margin-bottom: 40px;
+      animation: fadeInUp 1s ease-out 0.3s both;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+      font-weight: 300;
+    }
+
+    .hero button {
+      padding: 18px 45px;
+      background: linear-gradient(135deg, #ff4e6a, #ff264c);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: 500;
+      transition: all 0.4s;
+      animation: fadeInUp 1s ease-out 0.6s both, glow 2s ease-in-out infinite;
+      box-shadow: 0 6px 20px rgba(255, 78, 106, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero button::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .hero button:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .hero button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 30px rgba(255, 78, 106, 0.7);
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 6px 20px rgba(255, 78, 106, 0.5); }
+      50% { box-shadow: 0 6px 30px rgba(255, 78, 106, 0.8); }
+    }
+
+    .sparkles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      animation: sparkleFloat 3s ease-in-out infinite;
+      opacity: 0;
+    }
+
+    @keyframes sparkleFloat {
+      0% {
+        opacity: 0;
+        transform: translateY(0) scale(0);
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(-50px) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(0);
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Sections */
+    section {
+      padding: 60px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    h2 {
+      text-align: center;
+      font-family: 'Caveat', cursive;
+      font-size: 3rem;
+      margin-bottom: 40px;
+      color: #ff4e6a;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #ff4e6a;
+    }
+
+    .timeline .event {
+      background: #ffe5ec;
+      margin: 30px 0 30px 50px;
+      padding: 20px;
+      border-left: 4px solid #ff4e6a;
+      border-radius: 8px;
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .timeline .event:hover {
+      transform: translateX(10px);
+      box-shadow: 0 5px 15px rgba(255, 78, 106, 0.3);
+    }
+
+    .timeline .event::before {
+      content: '💕';
+      position: absolute;
+      left: -67px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #ff4e6a;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .timeline .date {
+      font-weight: bold;
+      color: #ff4e6a;
+      font-size: 1.1rem;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .timeline .event p {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    /* Her Eyes Section */
+    .eyes-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 20px;
+      padding: 50px 40px !important;
+      text-align: center;
+    }
+
+    .eyes-section h2 {
+      color: white;
+      margin-bottom: 30px;
+    }
+
+    .eyes-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .eyes-photo {
+      background: white;
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      max-width: 400px;
+      width: 100%;
+      transition: transform 0.3s;
+    }
+
+    .eyes-photo:hover {
+      transform: scale(1.05);
+    }
+
+    .eyes-photo img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      display: block;
+    }
+
+    .eyes-caption {
+      color: white;
+      font-size: 1.3rem;
+      font-family: 'Caveat', cursive;
+      max-width: 500px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    /* Gallery */
+    .gallery .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
+    }
+
+    .gallery .photo,
+    .gallery .photo1 {
+      background: white;
+      padding: 10px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .gallery .photo:hover,
+    .gallery .photo1:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .gallery img {
+      max-width: 100%;
+      border-radius: 8px;
+      transition: transform 0.5s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.5) rotate(-90deg);
+    }
+
+    /* Poem Section */
+    .poem-section {
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      border-radius: 20px;
+      padding: 50px 40px !important;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .poem-section::before {
+      content: '"';
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      font-size: 120px;
+      color: rgba(255, 78, 106, 0.15);
+      font-family: Georgia, serif;
+      line-height: 0.8;
+    }
+
+    .poem-section::after {
+      content: '"';
+      position: absolute;
+      bottom: 20px;
+      right: 30px;
+      font-size: 120px;
+      color: rgba(255, 78, 106, 0.15);
+      font-family: Georgia, serif;
+      line-height: 0.8;
+    }
+
+    .poem-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .poem {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .poem .verse {
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      line-height: 1.8;
+      color: #333;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .poem .verse:last-child {
+      margin-bottom: 0;
+    }
+
+    .poem .verse br {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    /* Reasons */
+    .reasons {
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      border-radius: 20px;
+      padding: 50px 40px !important;
+    }
+
+    .reasons ul {
+      list-style: none;
+      padding: 0;
+      font-size: 1.15rem;
+      display: grid;
+      gap: 15px;
+    }
+
+    .reasons li {
+      background: white;
+      padding: 15px 20px;
+      border-radius: 10px;
+      transition: all 0.3s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .reasons li:hover {
+      transform: translateX(10px);
+      box-shadow: 0 4px 15px rgba(255, 78, 106, 0.3);
+    }
+
+    .reasons li::before {
+      content: "❤️ ";
+      font-size: 1.3rem;
+    }
+
+    .reasons li b {
+      color: #ff4e6a;
+      font-size: 1.3rem;
+    }
+
+    /* Closing */
+    .closing {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      color: white;
+      font-family: 'Caveat', cursive;
+      font-size: 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .closing p {
+      margin: 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      h2 {
+        font-size: 2rem;
+      }
+
+      .timeline::before {
+        left: 10px;
+      }
+
+      .timeline .event {
+        margin-left: 40px;
+      }
+
+      .timeline .event::before {
+        left: -57px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating Hearts Background -->
+  <div class="floating-hearts" id="floatingHearts"></div>
+
+  <!-- Landing / Hero Section -->
+  <header class="hero">
+    <h1>Hi Simran</h1>
+    <p>This little site is just for you ❤️</p>
+    <button onclick="document.getElementById('story').scrollIntoView({behavior:'smooth'})">
+      Start Our Journey
+    </button>
+  </header>
+
+  <!-- Story Timeline -->
+  <section id="story" class="story">
+    <h2>Our Journey</h2>
+    <div class="timeline">
+      <div class="event">
+        <span class="date">15th September 2024</span>
+        <p>We met for the first time</p>
+      </div>
+      <div class="event">
+        <span class="date">23rd October 2024</span>
+        <p>Our first hug</p>
+      </div>
+      <div class="event">
+        <span class="date">25th November 2024</span>
+        <p>Our First Kiss</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Her Eyes Section -->
+  <section class="eyes-section">
+    <h2>Those Beautiful Eyes 👁️👁️</h2>
+    <div class="eyes-container">
+      <div class="eyes-photo">
+        <img src="her-eyes.jpg" alt="Her Beautiful Eyes">
+      </div>
+      <p class="eyes-caption">The windows to your soul, and my favorite view in the world 💫</p>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery">
+    <h2>THE PRETTIEST LADY</h2>
+    <div class="grid">
+      <div class="photo"><img src="WhatsApp Image 2025-10-02 at 16.19.16_4962a0a1.jpg" alt="Memory 1"></div>
+      <div class="photo1"><img src="WhatsApp Image 2025-10-02 at 16.09.42_cf43dbdc.jpg" alt="Memory 2"></div>
+      <div class="photo"><img src="WhatsApp Image 2025-10-02 at 16.29.58_1216e15a.jpg" alt="Memory 3"></div>
+    </div>
+  </section>
+
+  <!-- Poem Section -->
+  <section class="poem-section">
+    <h2>A Poem For You</h2>
+    <div class="poem-container">
+      <div class="poem">
+        <p class="verse">
+          In your eyes, I found my home,<br>
+          A place where I no longer roam.<br>
+          Your smile, a light that guides my way,<br>
+          Turning my darkest night to day.
+        </p>
+        <p class="verse">
+          With every laugh, with every tear,<br>
+          You're the melody I long to hear.<br>
+          In your arms, the world feels right,<br>
+          You're my sunshine, my moonlight.
+        </p>
+        <p class="verse">
+          Forever grateful, forever true,<br>
+          My heart belongs to only you.<br>
+          Through every season, come what may,<br>
+          I'll love you more with each new day.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reasons I Love You -->
+  <section class="reasons">
+    <h2>Reasons I Love You So Much</h2>
+    <ul>
+      <li>Your eyes 👁️👁️</li>
+      <li>You are the kindest person</li>
+      <li>You are the sweetest person</li>
+      <li>You are so freaking cute</li>
+      <li>You are so understanding</li>
+      <li>You are so supportive</li>
+      <li>You are so smart</li>
+      <li>You are so talented</li>
+      <li>You are so hardworking</li>
+      <li>You are so beautiful</li>
+      <li>You are so funny</li>
+      <li>You are so caring</li>
+      <li>You are so loving</li>
+      <li>You are so adorable</li>
+      <li>You are so amazing</li>
+      <li><b>YOU ARE THE LOVE OF MY LIFE</b></li>
+    </ul>
+  </section>
+
+  <!-- Closing Note -->
+  <footer class="closing">
+    <p>Thank you for being the best part of my story. 💫</p>
+  </footer>
+
+  <script>
+    // Create floating hearts in background
+    const heartsContainer = document.getElementById('floatingHearts');
+    
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'floating-heart';
+      heart.innerHTML = '❤️';
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.animationDuration = (Math.random() * 8 + 12) + 's';
+      heart.style.animationDelay = Math.random() * 5 + 's';
+      heartsContainer.appendChild(heart);
+      
+      setTimeout(() => {
+        heart.remove();
+      }, 20000);
+    }
+    
+    // Create initial hearts
+    for (let i = 0; i < 12; i++) {
+      setTimeout(createHeart, i * 600);
+    }
+    
+    // Continue creating hearts periodically
+    setInterval(() => {
+      createHeart();
+    }, 4000);
+  </script>
+</body>
+</html>
